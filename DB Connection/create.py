@@ -2,11 +2,30 @@
 # ALWAYS NAME INSTANCES TO INST_INSTANCENAME SO THAT I CANT GET CONFUSED
 # DB ALWAYS USE db_databasename AS NAMING CONVENTIONS
 
-from app import db, Users
+# from app import db, Users
+
+# db.drop_all()
+# db.create_all()
+
+# testuser = Users(first_name='Grooty',last_name='Toot') # Extra: this section populates the table with an example entry
+# db.session.add(testuser)
+# db.session.commit()
+
+from app import db, Countries, Cities
 
 db.drop_all()
-db.create_all()
+db.create_all() # Creates all table classes defined
 
-testuser = Users(first_name='Grooty',last_name='Toot') # Extra: this section populates the table with an example entry
-db.session.add(testuser)
-db.session.commit()
+# UK = Countries(name = 'United Kingdom')
+# db.session.add(UK)
+# db.session.commit()
+
+# ldn = Cities(name='London', country = UK)
+# mcr = Cities(name='Manchester', country = Countries.query.filter_by(name='United Kingdom').first())
+
+# db.session.add(ldn)
+# db.session.add(mcr)
+# db.session.commit()
+
+
+
