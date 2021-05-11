@@ -19,7 +19,10 @@ def home():
 
 @app.route('/todos')
 def todos():
-    return 'Show all the todos in the DB here.'
+    returnallTODO = TodoList.query.all()
+    return str(returnallTODO)
+
+    #return 'Show all the todos in the DB here.'
 
 
 if __name__=='__main__':
