@@ -40,10 +40,10 @@ class Products(db.Model):
     chosen_items = db.relationship("ChosenItems", backref="product")
 
 
-class ChosenItems(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, foreign_key('orders.id'), nullable = False)
-    product_id = db.Column(db.Integer, foreign_key('products.id'), nullable = False)
+# class ChosenItems(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     order_id = db.Column(db.Integer, db.foreign_key('orders.id'), nullable = False)
+#     product_id = db.Column(db.Integer, db.foreign_key('products.id'), nullable = False)
 
 if __name__=='__main__':
-    app.run(debug==True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')

@@ -11,7 +11,8 @@
 # db.session.add(testuser)
 # db.session.commit()
 
-from app import db, Countries, Cities
+#from app import db, Countries, Cities
+from app import db, Orders, Products#, ChosenItems
 
 db.drop_all()
 db.create_all() # Creates all table classes defined
@@ -26,6 +27,3 @@ db.create_all() # Creates all table classes defined
 # db.session.add(ldn)
 # db.session.add(mcr)
 # db.session.commit()
-
-
-
