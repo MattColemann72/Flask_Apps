@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import backref
+from sqlalchemy.sql.schema import RETAIN_SCHEMA
 
 app = Flask(__name__)
 
@@ -14,13 +15,72 @@ class TodoList(db.Model):
     complete = db.Column(db.Boolean, default=False)
 
 @app.route('/')
-def home():
-    return 'This is a TODO App'
+def index():
+    all_todos = TodoList.query.all()
+    todos_string = ""
+    for todo in all_todos:
+        todos_string += "<br>" + str(TodoList.id) + " " + TodoList.task + " " + str(TodoList.complete)
+    return todos_string
 
-@app.route('/todos')
-def todos():
-    returnallTODO = TodoList.query.all()
-    return str(returnallTODO)
+@app.route('/complete/<int:id>')
+def completetodo(id):
+    #get id 1 from db, return 
+    deleteme = TodoList.query.get(id)
+    deleteme.complete = True
+    #db.session.delete(deleteme)
+    db.session.commit()
+    return f'deleted {id}'
+
+@app.route('/incomplete/<int:id>')
+def incompletetodo(id):
+    #get id 1 from db, return 
+    incompleteme = TodoList.query.get(id)
+    incompleteme.complete = False
+    #db.session.delete(deleteme)
+    db.session.commit()
+    return f'deleted {id}'
+
+# @app.route('/delete/<int:todo_id')
+# def delete(todo_id):
+#     deleteme = TodoList.query.get(todo_id)
+#     db.session.delete(deleteme)
+#     db.session.commit()
+#     #return redirect(url_for("index"))
+#     return ""
+
+@app.route('/add')
+def add():
+    addme = TodoList(task = "New ToDo", complete = True)
+    db.session.add(addme)
+    db.session.commit()
+    return addme.task
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    deleteme = TodoList.query.get(id)
+    db.session.delete(deleteme)
+    db.session.commit()
+    return redirect(url_for("index"))
+
+
+
+'''
+Create Routes that Adds a new Todo with the value "New Todo" everytime
+	Create 2 routes, one that completes the todo specified in the path ie. /complete/1 would complete todo with ID 1, it should return a message saying "Completed todo 1"
+	
+    Create a route that deletes the todo in the path i.e. /delete/1 will delete todo with ID 1
+	
+    Create templates, a layout.html (That will have the layout) and index.html (which displays all todos)
+	
+    Change your template to show this "&#9989" if the todo is complete 
+	
+    Create a form that will allow users to enter todos and put this form in a new template called add.html
+	(Stretch Goal) Add buttons at the top of every page to the home and add pages to make it easier to navigate
+'''
+
+
+
+
 
     #return 'Show all the todos in the DB here.'
 

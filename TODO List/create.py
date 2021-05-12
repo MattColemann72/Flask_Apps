@@ -3,7 +3,7 @@ from app import db, TodoList
 db.drop_all
 db.create_all()
 
-todotask = TodoList(task = "Wake Up")
+todotask = TodoList(task = "New ToDo")
 # todo2 = TodoList(task = "Get to work for 4", True)
 # todo3 = TodoList(task = "Work till 8", True)
 # todo4 = TodoList(task = "Start second work at 9", True)
