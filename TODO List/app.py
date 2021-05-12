@@ -19,26 +19,29 @@ def index():
     all_todos = TodoList.query.all()
     todos_string = ""
     for todo in all_todos:
-        todos_string += "<br>" + str(TodoList.id) + " " + TodoList.task + " " + str(TodoList.complete)
+        todos_string += "<br>" + str(todo.id) + todo.task + str(todo.complete)
+
     return todos_string
+    
+    # all_todos = TodoList.query.all()
+    # todos_string = ""
+    # for todo in all_todos:
+    #     todos_string += "<br>" + str(TodoList.id) + " " + TodoList.task + " " + str(TodoList.complete)
+    # return todos_string
 
-@app.route('/complete/<int:id>')
-def completetodo(id):
-    #get id 1 from db, return 
-    deleteme = TodoList.query.get(id)
-    deleteme.complete = True
-    #db.session.delete(deleteme)
+@app.route('/complete/<int:todo_id>')
+def completetodo(todo_id): 
+    completeme = TodoList.query.get(todo_id)
+    completeme.complete = True
     db.session.commit()
-    return f'deleted {id}'
+    return "Completed Todo"
 
-@app.route('/incomplete/<int:id>')
-def incompletetodo(id):
-    #get id 1 from db, return 
-    incompleteme = TodoList.query.get(id)
-    incompleteme.complete = False
-    #db.session.delete(deleteme)
+@app.route('/incomplete/<int:todo_id>')
+def incompletetodo(todo_id): 
+    completeme = TodoList.query.get(todo_id)
+    completeme.complete = False
     db.session.commit()
-    return f'deleted {id}'
+    return "Incompleted Todo"
 
 # @app.route('/delete/<int:todo_id')
 # def delete(todo_id):
@@ -50,7 +53,7 @@ def incompletetodo(id):
 
 @app.route('/add')
 def add():
-    addme = TodoList(task = "New ToDo", complete = True)
+    addme = TodoList(task = "New ToDo")
     db.session.add(addme)
     db.session.commit()
     return addme.task
